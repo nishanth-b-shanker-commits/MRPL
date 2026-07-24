@@ -12,7 +12,6 @@ export default function LearnerManagement({ profiles, setProfiles }) {
     password: 'password',
     role: 'Software Engineer',
     department: 'Engineering',
-    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150',
     status: 'Active'
   });
 
@@ -45,7 +44,6 @@ export default function LearnerManagement({ profiles, setProfiles }) {
       password: 'password',
       role: 'Software Engineer',
       department: 'Engineering',
-      avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150',
       status: 'Active'
     });
   };
@@ -232,11 +230,9 @@ export default function LearnerManagement({ profiles, setProfiles }) {
             {profiles.map(profile => (
               <tr key={profile.id} style={{ borderBottom: '1px solid var(--border)' }}>
                 <td style={{ padding: '1rem 1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                  <img 
-                    src={profile.avatar} 
-                    alt={profile.name} 
-                    style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover' }} 
-                  />
+                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'var(--primary)', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem', fontWeight: 700 }}>
+                    {profile.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
+                  </div>
                   <div>
                     <strong style={{ display: 'block', color: 'var(--text-main)' }}>{profile.name}</strong>
                     <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>ID: {profile.id}</span>

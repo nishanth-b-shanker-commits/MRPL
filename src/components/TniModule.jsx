@@ -107,11 +107,9 @@ export default function TniModule({ profiles, setProfiles, courses }) {
                     transition: 'all 0.2s'
                   }}
                 >
-                  <img 
-                    src={p.avatar} 
-                    alt={p.name} 
-                    style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--primary)' }} 
-                  />
+                  <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--primary)', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem', fontWeight: 700 }}>
+                    {p.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
+                  </div>
                   <div>
                     <strong style={{ fontSize: '0.9rem', display: 'block' }}>{p.name}</strong>
                     <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{p.role} • {p.department}</span>

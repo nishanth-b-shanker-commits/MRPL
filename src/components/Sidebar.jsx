@@ -68,11 +68,9 @@ export default function Sidebar({
       {/* Logged in user badge */}
       {currentUser && (
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.65rem', background: 'rgba(0, 75, 135, 0.04)', borderRadius: '10px', border: '1px solid var(--border)', marginBottom: '1.25rem' }}>
-          {currentUser.avatar ? (
-            <img src={currentUser.avatar} alt={currentUser.name} style={{ width: '32px', height: '32px', borderRadius: '50%', objectFit: 'cover' }} />
-          ) : (
-            <User size={20} style={{ color: 'var(--primary)' }} />
-          )}
+          <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'var(--primary)', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.8rem', fontWeight: 700 }}>
+            {currentUser.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
+          </div>
           <div style={{ flex: 1, overflow: 'hidden' }}>
             <strong style={{ fontSize: '0.8rem', display: 'block', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', color: 'var(--text-main)' }}>{currentUser.name}</strong>
             <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'capitalize' }}>Role: {userRole}</span>

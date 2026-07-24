@@ -573,7 +573,9 @@ export default function LearnerPortal({ profiles, setProfiles, courses, publishe
               {/* Profile Bar in Mobile */}
               <div style={{ display: 'flex', justifyItems: 'center', justifyContent: 'space-between', alignItems: 'center', background: '#ffffff', padding: '0.65rem 0.85rem', borderRadius: '12px', border: '1px solid var(--border)', marginBottom: '1rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <img src={activeProfile?.avatar} alt="" style={{ width: '32px', height: '32px', borderRadius: '50%', border: '2px solid var(--primary)' }} />
+                  <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'var(--primary)', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 700 }}>
+                    {activeProfile?.name ? activeProfile.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : ''}
+                  </div>
                   <div>
                     <strong style={{ fontSize: '0.75rem', display: 'block' }}>{activeProfile?.name}</strong>
                     <span style={{ fontSize: '0.6rem', color: 'var(--text-muted)' }}>{activeProfile?.role}</span>
@@ -671,11 +673,9 @@ export default function LearnerPortal({ profiles, setProfiles, courses, publishe
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
           {activeProfile && (
             <>
-              <img 
-                src={activeProfile.avatar} 
-                alt={activeProfile.name} 
-                style={{ width: '56px', height: '56px', borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--primary)' }} 
-              />
+              <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: 'var(--primary)', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.35rem', fontWeight: 800, border: '3px solid rgba(255, 255, 255, 0.8)' }}>
+                {activeProfile.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
+              </div>
               <div>
                 <h1 style={{ fontSize: '1.5rem', fontFamily: 'var(--font-heading)' }}>Welcome back, {activeProfile.name}</h1>
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>

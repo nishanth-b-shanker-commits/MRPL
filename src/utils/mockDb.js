@@ -4,16 +4,14 @@ export const adminUser = {
   username: 'admin',
   password: 'admin123',
   name: 'System Administrator',
-  role: 'admin',
-  avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150'
+  role: 'admin'
 };
 
 export const curatorUser = {
   username: 'curator',
   password: 'curator123',
   name: 'Marcus Brody (Curator)',
-  role: 'curator',
-  avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150'
+  role: 'curator'
 };
 
 export const initialCourses = [
@@ -66,39 +64,30 @@ export const initialCourses = [
     title: 'GDPR & Data Privacy compliance',
     description: 'Essential training for data protection, understanding user privacy rights, and handling sensitive customer data.',
     type: 'Document',
-    duration: '45 mins',
+    duration: '1 hour',
     category: 'Compliance',
-    completionRate: 98,
-    enrolledCount: 300,
+    completionRate: 82,
+    enrolledCount: 65,
   }
 ];
 
 export const searchItems = [
   {
     id: 'doc-1',
-    title: 'Company Network Access Guide',
-    description: 'Instructions on setting up corporate VPN, connecting to secure Wi-Fi, and handling network passwords.',
-    content: 'To access the corporate network, download the VPN client. Reset credentials via the portal. Multi-Factor Authentication (MFA) is mandatory for login. Do not share your security keys.',
+    title: 'MRPL Company Network Access Guide',
+    description: 'Official corporate policy for authenticating remote workstations on the private MRPL network.',
+    content: 'All remote employees must log in using the secure corporate VPN client. Sharing passwords, certificates, or VPN access profiles via unsecured chat clients is strictly prohibited. Access keys are changed periodically.',
     type: 'document',
     category: 'Security',
     clicks: 12,
   },
   {
     id: 'video-1',
-    title: 'Git Rebase and Merge Workflows',
-    description: 'Video tutorial detailing how to rebase local branches and clean up git history before merging pull requests.',
-    content: 'In this video, we cover git rebase interactive. Learn how to squash commits, rephrase messages, and resolve rebase conflicts in Visual Studio Code. Avoid merging main into branch directly.',
+    title: 'Understanding Git Branch Rebase & Conflict Resolution',
+    description: 'Video tutorial covering advanced git branch rebase workflows, squash commits, and interactive conflict resolving.',
+    content: 'git rebase allows rewriting branch history. The rebase --interactive parameter lets you squash minor development commits together. If conflict occurs, edit files, git add, and run git rebase --continue.',
     type: 'video',
     category: 'Engineering',
-    clicks: 8,
-  },
-  {
-    id: 'video-sec-01-item',
-    title: 'Cloud Security Architecture & IAM (Video)',
-    description: 'Video course detailing Identity & Access Management (IAM), role-based access, and zero-trust security principles.',
-    content: 'Welcome to Cloud Security. In this module, we will explore Identity & Access Management (IAM), least privilege access, multi-factor authentication, and securing cloud APIs.',
-    type: 'video',
-    category: 'Security',
     videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
     clicks: 15,
   },
@@ -181,7 +170,6 @@ export const initialProfiles = [
     name: 'Sarah Chen',
     role: 'Software Engineer',
     department: 'Engineering',
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150',
     status: 'Active',
     skills: {
       'Coding & Design': 3,
@@ -201,7 +189,6 @@ export const initialProfiles = [
     name: 'Marcus Brody',
     role: 'Customer Support Specialist',
     department: 'Customer Success',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150',
     status: 'Active',
     skills: {
       'Coding & Design': 1,
@@ -221,13 +208,12 @@ export const initialProfiles = [
     name: 'Elena Rostova',
     role: 'Product Manager',
     department: 'Product',
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=150',
     status: 'Active',
     skills: {
       'Coding & Design': 2,
       'Version Control (Git)': 1,
       'Agile Methodologies': 4,
-      'Security Awareness': 3,
+      'Security Awareness': 2,
       'Data Privacy': 3
     },
     trainingHistory: []
