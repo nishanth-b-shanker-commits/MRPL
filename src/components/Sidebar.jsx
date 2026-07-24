@@ -10,7 +10,8 @@ import {
   Key, 
   LogOut, 
   User,
-  GraduationCap
+  GraduationCap,
+  Database
 } from 'lucide-react';
 
 export default function Sidebar({ 
@@ -29,6 +30,15 @@ export default function Sidebar({
     { id: 'search', label: 'Semantic Search', icon: Search },
     { id: 'tni', label: 'TNI Engine', icon: Layers },
     { id: 'learner-mgmt', label: 'Manage Learners', icon: Users },
+    { id: 'video-upload', label: 'Upload Video', icon: Video },
+    { id: 'db-visualizer', label: 'DB Visualizer', icon: Database }
+  ];
+
+  const curatorMenuItems = [
+    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { id: 'scorm', label: 'SCORM Player', icon: BookOpen },
+    { id: 'question-gen', label: 'AI Question Gen', icon: Brain },
+    { id: 'search', label: 'Semantic Search', icon: Search },
     { id: 'video-upload', label: 'Upload Video', icon: Video }
   ];
 
@@ -38,7 +48,9 @@ export default function Sidebar({
     { id: 'learner-sync', label: 'Sync & Downloads', icon: Layers }
   ];
 
-  const menuItems = userRole === 'admin' ? adminMenuItems : learnerMenuItems;
+  const menuItems = userRole === 'admin' ? adminMenuItems 
+                  : userRole === 'curator' ? curatorMenuItems 
+                  : learnerMenuItems;
 
   return (
     <div className="sidebar" style={{ height: '100vh', overflowY: 'auto' }}>

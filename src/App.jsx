@@ -9,6 +9,7 @@ import TniModule from './components/TniModule';
 import LearnerManagement from './components/LearnerManagement';
 import VideoUploadModule from './components/VideoUploadModule';
 import LearnerPortal from './components/LearnerPortal';
+import DatabaseVisualizer from './components/DatabaseVisualizer';
 
 import { initialCourses, initialProfiles, searchItems as seedSearchItems, adminUser } from './utils/mockDb';
 
@@ -32,7 +33,7 @@ export default function App() {
 
   const [activeTab, setActiveTab] = useState(() => {
     const role = localStorage.getItem('mrpl_user_role') || 'admin';
-    return role === 'admin' ? 'dashboard' : 'learner-courses';
+    return role === 'learner' ? 'learner-courses' : 'dashboard';
   });
   const [apiKey, setApiKey] = useState(() => {
     return localStorage.getItem('mrpl_gemini_api_key') || '';
@@ -78,6 +79,7 @@ export default function App() {
     setIsAuthenticated(true);
     setCurrentUser(user);
     setUserRole(role);
+    setActiveTab(role === 'learner' ? 'learner-courses' : 'dashboard');
     localStorage.setItem('mrpl_auth_active', 'true');
     localStorage.setItem('mrpl_user_profile', JSON.stringify(user));
     localStorage.setItem('mrpl_user_role', role);
@@ -169,6 +171,14 @@ export default function App() {
             setCourses={setCourses}
             searchItems={searchItems}
             setSearchItems={setSearchItems}
+          />
+        );
+      case 'db-visualizer':
+        return (
+          <DatabaseVisualizer 
+            courses={courses}
+            profiles={profiles}
+            publishedQuestions={publishedQuestions}
           />
         );
       default:
