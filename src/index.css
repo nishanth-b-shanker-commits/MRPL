@@ -26,21 +26,9 @@
 
   /* Glassmorphism Surface Values (No Black) */
   --bg-main: transparent;
-  --bg-card: rgba(255, 255, 255, 0.85);
-  --bg-card-hover: rgba(255, 255, 255, 0.95);
-  --border: rgba(0, 75, 135, 0.15);
-  --border-focus: #004b87;
-  
-  --text-main: #0a1f33; /* Deep Petroleum Slate */
-  --text-muted: #4b5563;
   --text-inverse: #ffffff;
-
-  /* Modern Glass Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 43, 76, 0.03);
-  --shadow-md: 0 8px 24px -4px rgba(0, 43, 76, 0.08);
-  --shadow-lg: 0 20px 48px -6px rgba(0, 43, 76, 0.15);
   --shadow-primary: 0 4px 16px 0 rgba(0, 75, 135, 0.25);
-
+  
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
@@ -48,6 +36,33 @@
 
   --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Theme variables switcher */
+.theme-light {
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-card-hover: rgba(255, 255, 255, 0.95);
+  --border: rgba(0, 75, 135, 0.15);
+  --border-focus: #004b87;
+  --text-main: #0a1f33;
+  --text-muted: #4b5563;
+  --app-overlay: rgba(240, 244, 248, 0.55);
+  --shadow-sm: 0 2px 8px rgba(0, 43, 76, 0.03);
+  --shadow-md: 0 8px 24px -4px rgba(0, 43, 76, 0.08);
+  --shadow-lg: 0 20px 48px -6px rgba(0, 43, 76, 0.15);
+}
+
+.theme-dark {
+  --bg-card: rgba(15, 23, 42, 0.85);
+  --bg-card-hover: rgba(30, 41, 59, 0.9);
+  --border: rgba(255, 255, 255, 0.15);
+  --border-focus: #60a5fa;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --app-overlay: rgba(10, 25, 47, 0.65);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 20px 48px -6px rgba(0, 0, 0, 0.45);
 }
 
 /* Reset */
@@ -74,9 +89,10 @@ body {
 .app-container {
   display: flex;
   min-height: 100vh;
-  background: rgba(10, 25, 47, 0.25); /* Darker overlay for high-contrast chalkboard */
+  background: var(--app-overlay);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  transition: background var(--transition-normal);
 }
 
 h1, h2, h3, h4, h5, h6 {

@@ -35,6 +35,7 @@ export default function App() {
     const role = localStorage.getItem('mrpl_user_role') || 'admin';
     return role === 'learner' ? 'learner-courses' : 'dashboard';
   });
+
   const [apiKey, setApiKey] = useState(() => {
     return localStorage.getItem('mrpl_gemini_api_key') || '';
   });
@@ -71,9 +72,19 @@ export default function App() {
   
   const [scormLogsCount, setScormLogsCount] = useState(0);
 
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('mrpl_theme') || 'light';
+  });
+
   useEffect(() => {
     localStorage.setItem('mrpl_gemini_api_key', apiKey);
   }, [apiKey]);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(nextTheme);
+    localStorage.setItem('mrpl_theme', nextTheme);
+  };
 
   const handleLoginSuccess = ({ user, role }) => {
     setIsAuthenticated(true);
@@ -98,7 +109,11 @@ export default function App() {
   };
 
   if (!isAuthenticated) {
-    return <Login profiles={profiles} onLoginSuccess={handleLoginSuccess} />;
+    return (
+      <div className={`theme-${theme}`}>
+        <Login profiles={profiles} onLoginSuccess={handleLoginSuccess} />
+      </div>
+    );
   }
 
   const renderMainView = () => {
@@ -187,7 +202,7 @@ export default function App() {
   };
 
   return (
-    <div className="app-container">
+    <div className={`app-container theme-${theme}`}>
       {/* 1. Sidebar Control Panel */}
       <Sidebar 
         currentUser={currentUser}
@@ -201,7 +216,46 @@ export default function App() {
 
       {/* 2. Main content area */}
       <div className="main-content">
-        <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          
+          {/* Workspace Header Bar */}
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            alignItems: 'center', 
+            background: 'var(--bg-card)', 
+            padding: '0.75rem 1.25rem', 
+            borderRadius: '12px', 
+            border: '1px solid var(--border)', 
+            boxShadow: 'var(--shadow-sm)',
+            transition: 'all 0.3s ease-in-out',
+            animation: 'fadeIn 0.3s ease-out'
+          }}>
+            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              📁 MRPL LMS Workspace &gt; <span style={{ color: 'var(--primary)' }}>{activeTab.replace('learner-', '').replace('-', ' ')}</span>
+            </div>
+            
+            <button 
+              onClick={toggleTheme} 
+              className="btn btn-secondary" 
+              style={{ 
+                padding: '0.4rem 0.75rem', 
+                fontSize: '0.75rem', 
+                fontWeight: 600,
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '0.35rem',
+                border: '1px solid var(--border)',
+                background: 'rgba(255, 255, 255, 0.2)',
+                color: 'var(--text-main)',
+                cursor: 'pointer',
+                borderRadius: '8px'
+              }}
+            >
+              {theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}
+            </button>
+          </div>
+
           {renderMainView()}
         </div>
       </div>
