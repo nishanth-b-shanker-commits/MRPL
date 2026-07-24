@@ -12,6 +12,7 @@ import LearnerPortal from './components/LearnerPortal';
 import DatabaseVisualizer from './components/DatabaseVisualizer';
 
 import { initialCourses, initialProfiles, searchItems as seedSearchItems, adminUser } from './utils/mockDb';
+import { apiGetCourses, apiGetProfiles, apiSaveCourse, apiUpdateProfile, apiCreateProfile, apiDeleteProfile } from './utils/apiClient';
 
 export default function App() {
   // Session Authentication State
@@ -76,6 +77,17 @@ export default function App() {
     return localStorage.getItem('mrpl_theme') || 'light';
   });
 
+  // Load live data from MongoDB Cloud on mount
+  useEffect(() => {
+    const loadLiveData = async () => {
+      const liveCourses = await apiGetCourses(initialCourses);
+      setCourses(liveCourses);
+      const liveProfiles = await apiGetProfiles(initialProfiles);
+      setProfiles(liveProfiles);
+    };
+    loadLiveData();
+  }, []);
+
   useEffect(() => {
     localStorage.setItem('mrpl_gemini_api_key', apiKey);
   }, [apiKey]);
@@ -84,6 +96,36 @@ export default function App() {
     const nextTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(nextTheme);
     localStorage.setItem('mrpl_theme', nextTheme);
+  };
+
+  const handleSetCourses = (updater) => {
+    setCourses(prev => {
+      const next = typeof updater === 'function' ? updater(prev) : updater;
+      if (next.length > prev.length) {
+        apiSaveCourse(next[next.length - 1], next);
+      }
+      return next;
+    });
+  };
+
+  const handleSetProfiles = (updater) => {
+    setProfiles(prev => {
+      const next = typeof updater === 'function' ? updater(prev) : updater;
+      if (next.length > prev.length) {
+        apiCreateProfile(next[next.length - 1]);
+      } else if (next.length < prev.length) {
+        const deleted = prev.find(p => !next.some(np => np.id === p.id));
+        if (deleted) apiDeleteProfile(deleted.id);
+      } else {
+        next.forEach((np) => {
+          const op = prev.find(p => p.id === np.id);
+          if (op && JSON.stringify(op) !== JSON.stringify(np)) {
+            apiUpdateProfile(np.id, np);
+          }
+        });
+      }
+      return next;
+    });
   };
 
   const handleLoginSuccess = ({ user, role }) => {
@@ -121,7 +163,7 @@ export default function App() {
       return (
         <LearnerPortal 
           profiles={profiles}
-          setProfiles={setProfiles}
+          setProfiles={handleSetProfiles}
           courses={courses}
           publishedQuestions={publishedQuestions}
           activeTab={activeTab}
@@ -144,7 +186,7 @@ export default function App() {
         return (
           <ScormModule 
             courses={courses} 
-            setCourses={setCourses} 
+            setCourses={handleSetCourses} 
             addScormLog={addScormLog} 
           />
         );
@@ -168,7 +210,7 @@ export default function App() {
         return (
           <TniModule 
             profiles={profiles} 
-            setProfiles={setProfiles} 
+            setProfiles={handleSetProfiles} 
             courses={courses} 
           />
         );
@@ -176,14 +218,14 @@ export default function App() {
         return (
           <LearnerManagement
             profiles={profiles}
-            setProfiles={setProfiles}
+            setProfiles={handleSetProfiles}
           />
         );
       case 'video-upload':
         return (
           <VideoUploadModule
             courses={courses}
-            setCourses={setCourses}
+            setCourses={handleSetCourses}
             searchItems={searchItems}
             setSearchItems={setSearchItems}
           />
