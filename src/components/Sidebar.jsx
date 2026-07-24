@@ -93,7 +93,7 @@ export default function Sidebar({
             return (
               <li key={item.id}>
                 <button
-                  className={`sidebar-item btn-secondary ${activeTab === item.id ? 'active' : ''}`}
+                  className={`sidebar-item ${activeTab === item.id ? 'active' : ''}`}
                   onClick={() => setActiveTab(item.id)}
                   style={{ width: '100%', border: 'none', background: 'none', textAlign: 'left' }}
                 >
@@ -107,7 +107,7 @@ export default function Sidebar({
       </div>
 
       {/* API Key Config Box */}
-      <div className="card" style={{ padding: '1rem', background: 'rgba(255,255,255,0.5)', border: '1px solid var(--border)', marginTop: 'auto' }}>
+      <div className="card" style={{ padding: '1rem', border: '1px solid var(--border)', marginTop: 'auto' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
           <Key size={14} style={{ color: 'var(--primary)' }} />
           <h4 style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-main)' }}>Gemini API Settings</h4>

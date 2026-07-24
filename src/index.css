@@ -131,10 +131,11 @@ h1, h2, h3, h4, h5, h6 {
   animation: fadeIn var(--transition-normal);
 }
 
+
 /* Glassmorphism Sidebar */
 .sidebar {
   width: 280px;
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--bg-card);
   border-right: 1px solid var(--border);
   padding: 2rem 1.25rem;
   display: flex;
