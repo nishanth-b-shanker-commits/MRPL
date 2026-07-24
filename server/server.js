@@ -118,6 +118,57 @@ app.delete('/api/profiles/:id', async (req, res) => {
   }
 });
 
+// GET Questions
+app.get('/api/questions', async (req, res) => {
+  const db = getDb();
+  if (!db) return res.json({ source: 'mock_fallback', data: [] });
+  try {
+    const list = await db.collection('questions').find({}).toArray();
+    res.json({ source: 'mongodb', data: list });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST Questions
+app.post('/api/questions', async (req, res) => {
+  const db = getDb();
+  if (!db) return res.status(503).json({ error: 'MongoDB disconnected' });
+  try {
+    const questions = req.body;
+    const toInsert = Array.isArray(questions) ? questions : [questions];
+    await db.collection('questions').insertMany(toInsert);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET SCORM Logs
+app.get('/api/scorm-logs', async (req, res) => {
+  const db = getDb();
+  if (!db) return res.json({ source: 'mock_fallback', data: [] });
+  try {
+    const list = await db.collection('scorm_logs').find({}).toArray();
+    res.json({ source: 'mongodb', data: list });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST SCORM Log
+app.post('/api/scorm-logs', async (req, res) => {
+  const db = getDb();
+  if (!db) return res.status(503).json({ error: 'MongoDB disconnected' });
+  try {
+    const log = req.body;
+    await db.collection('scorm_logs').insertOne(log);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Backend server running locally on http://localhost:${PORT}`);
 });

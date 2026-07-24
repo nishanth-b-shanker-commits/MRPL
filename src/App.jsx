@@ -12,7 +12,18 @@ import LearnerPortal from './components/LearnerPortal';
 import DatabaseVisualizer from './components/DatabaseVisualizer';
 
 import { initialCourses, initialProfiles, searchItems as seedSearchItems, adminUser } from './utils/mockDb';
-import { apiGetCourses, apiGetProfiles, apiSaveCourse, apiUpdateProfile, apiCreateProfile, apiDeleteProfile } from './utils/apiClient';
+import { 
+  apiGetCourses, 
+  apiGetProfiles, 
+  apiSaveCourse, 
+  apiUpdateProfile, 
+  apiCreateProfile, 
+  apiDeleteProfile, 
+  apiGetQuestions, 
+  apiSaveQuestions, 
+  apiGetScormLogsCount, 
+  apiSaveScormLog 
+} from './utils/apiClient';
 
 export default function App() {
   // Session Authentication State
@@ -82,8 +93,19 @@ export default function App() {
     const loadLiveData = async () => {
       const liveCourses = await apiGetCourses(initialCourses);
       setCourses(liveCourses);
+      
       const liveProfiles = await apiGetProfiles(initialProfiles);
       setProfiles(liveProfiles);
+
+      // Load live questions
+      const liveQuestions = await apiGetQuestions(publishedQuestions);
+      setPublishedQuestions(liveQuestions);
+
+      // Load live SCORM logs count
+      const liveScormCount = await apiGetScormLogsCount();
+      if (liveScormCount !== null) {
+        setScormLogsCount(liveScormCount);
+      }
     };
     loadLiveData();
   }, []);
@@ -128,6 +150,19 @@ export default function App() {
     });
   };
 
+  const handleSetPublishedQuestions = (updater) => {
+    setPublishedQuestions(prev => {
+      const next = typeof updater === 'function' ? updater(prev) : updater;
+      if (next.length > prev.length) {
+        const added = next.filter(nq => !prev.some(pq => pq.id === nq.id));
+        if (added.length > 0) {
+          apiSaveQuestions(added);
+        }
+      }
+      return next;
+    });
+  };
+
   const handleLoginSuccess = ({ user, role }) => {
     setIsAuthenticated(true);
     setCurrentUser(user);
@@ -146,8 +181,9 @@ export default function App() {
     localStorage.removeItem('mrpl_user_role');
   };
 
-  const addScormLog = () => {
+  const addScormLog = (logData) => {
     setScormLogsCount(prev => prev + 1);
+    apiSaveScormLog(logData || { timestamp: new Date().toISOString(), action: 'scorm_commit', status: 'incomplete' });
   };
 
   if (!isAuthenticated) {
@@ -195,7 +231,7 @@ export default function App() {
           <QuestionGenModule 
             apiKey={apiKey} 
             publishedQuestions={publishedQuestions} 
-            setPublishedQuestions={setPublishedQuestions} 
+            setPublishedQuestions={handleSetPublishedQuestions} 
           />
         );
       case 'search':

@@ -148,3 +148,69 @@ export async function apiDeleteProfile(profileId) {
   logQuery(`MemoryCache.delete("profiles", "${profileId}")`, 'LOCAL_DELETE', 'Local Variables', { success: true });
   return false;
 }
+
+// FETCH questions
+export async function apiGetQuestions(localFallback) {
+  try {
+    const res = await fetch(`${BACKEND_URL}/questions`, { signal: AbortSignal.timeout(2000) });
+    const json = await res.json();
+    if (json.source === 'mongodb') {
+      logQuery('db.collection("questions").find({})', 'GET', '/api/questions', json.data);
+      return json.data;
+    }
+  } catch (e) {}
+
+  logQuery('MemoryCache.getTable("questions")', 'GET', 'Local Variables', localFallback);
+  return localFallback;
+}
+
+// SAVE questions
+export async function apiSaveQuestions(newQuestions) {
+  try {
+    const res = await fetch(`${BACKEND_URL}/questions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newQuestions),
+      signal: AbortSignal.timeout(2000)
+    });
+    if (res.ok) {
+      logQuery(`db.collection("questions").insertMany(${JSON.stringify(newQuestions)})`, 'POST', '/api/questions', { success: true });
+      return true;
+    }
+  } catch (e) {}
+
+  logQuery('MemoryCache.insertMany("questions")', 'LOCAL_WRITE', 'Local Variables', { success: true });
+  return false;
+}
+
+// FETCH scorm logs count
+export async function apiGetScormLogsCount() {
+  try {
+    const res = await fetch(`${BACKEND_URL}/scorm-logs`, { signal: AbortSignal.timeout(1500) });
+    const json = await res.json();
+    if (json.source === 'mongodb') {
+      logQuery('db.collection("scorm_logs").countDocuments()', 'GET', '/api/scorm-logs', { count: json.data.length });
+      return json.data.length;
+    }
+  } catch (e) {}
+  return null;
+}
+
+// SAVE scorm log
+export async function apiSaveScormLog(log) {
+  try {
+    const res = await fetch(`${BACKEND_URL}/scorm-logs`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(log),
+      signal: AbortSignal.timeout(2000)
+    });
+    if (res.ok) {
+      logQuery(`db.collection("scorm_logs").insertOne(${JSON.stringify(log)})`, 'POST', '/api/scorm-logs', { success: true });
+      return true;
+    }
+  } catch (e) {}
+  
+  logQuery('MemoryCache.insert("scorm_logs")', 'LOCAL_WRITE', 'Local Variables', { success: true });
+  return false;
+}
