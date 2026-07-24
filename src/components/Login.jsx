@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Shield, User, Key, LogIn, Sparkles } from 'lucide-react';
 import { adminUser, curatorUser } from '../utils/mockDb';
+import loginBg from '../assets/login_bg.jpg';
 
 export default function Login({ profiles, onLoginSuccess }) {
   const [loginRole, setLoginRole] = useState('admin'); // 'admin', 'curator', or 'learner'
@@ -73,32 +74,47 @@ export default function Login({ profiles, onLoginSuccess }) {
       alignItems: 'center',
       justifyContent: 'center',
       padding: '2rem',
-      background: 'rgba(240, 244, 248, 0.65)',
-      backdropFilter: 'blur(8px)',
-      WebkitBackdropFilter: 'blur(8px)'
+      background: `linear-gradient(rgba(15, 23, 42, 0.15), rgba(15, 23, 42, 0.35)), url(${loginBg}) center/cover no-repeat fixed`
     }}>
-      <div className="card" style={{ width: '100%', maxWidth: '460px', padding: '2.5rem', background: 'rgba(255, 255, 255, 0.8)', border: '1px solid rgba(0, 75, 135, 0.2)', boxShadow: 'var(--shadow-lg)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}>
+      <div className="card" style={{ 
+        width: '100%', 
+        maxWidth: '460px', 
+        padding: '2.5rem', 
+        background: 'rgba(253, 251, 247, 0.9)', /* Warm library cream paper */
+        border: '1px solid rgba(122, 77, 43, 0.25)', 
+        boxShadow: '0 24px 64px -12px rgba(58, 36, 17, 0.35)', 
+        backdropFilter: 'blur(16px)', 
+        WebkitBackdropFilter: 'blur(16px)' 
+      }}>
         
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div style={{ fontSize: '2.5rem', marginBottom: '0.25rem' }}>🎓</div>
-          <h1 style={{ fontSize: '1.75rem', fontFamily: 'var(--font-heading)', color: 'var(--primary)' }}>
+          <h1 style={{ fontSize: '1.75rem', fontFamily: 'var(--font-heading)', color: '#0f2942' }}>
             MRPL LMS Portal
           </h1>
-          <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>
+          <p style={{ fontSize: '0.85rem', color: '#5c3a21', marginTop: '0.25rem', fontWeight: 500 }}>
             Mangalore Refinery and Petrochemicals Limited
           </p>
         </div>
 
         {/* Role Tabs */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', background: 'rgba(0, 75, 135, 0.05)', padding: '0.25rem', borderRadius: '10px', marginBottom: '1.75rem', border: '1px solid rgba(0, 75, 135, 0.15)' }}>
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: '1fr 1fr 1fr', 
+          background: 'rgba(92, 58, 33, 0.05)', 
+          padding: '0.25rem', 
+          borderRadius: '10px', 
+          marginBottom: '1.75rem', 
+          border: '1px solid rgba(122, 77, 43, 0.15)' 
+        }}>
           <button
             type="button"
             onClick={() => handleRoleSwitch('admin')}
             style={{
               border: 'none',
-              background: loginRole === 'admin' ? 'var(--primary)' : 'transparent',
-              color: loginRole === 'admin' ? '#ffffff' : 'var(--text-muted)',
+              background: loginRole === 'admin' ? '#3d7a5a' : 'transparent', /* Match 'Art of Learning' book */
+              color: loginRole === 'admin' ? '#ffffff' : '#5c3a21',
               padding: '0.6rem 0.2rem',
               borderRadius: '8px',
               fontWeight: 600,
@@ -118,8 +134,8 @@ export default function Login({ profiles, onLoginSuccess }) {
             onClick={() => handleRoleSwitch('curator')}
             style={{
               border: 'none',
-              background: loginRole === 'curator' ? 'var(--primary)' : 'transparent',
-              color: loginRole === 'curator' ? '#ffffff' : 'var(--text-muted)',
+              background: loginRole === 'curator' ? '#3d7a5a' : 'transparent',
+              color: loginRole === 'curator' ? '#ffffff' : '#5c3a21',
               padding: '0.6rem 0.2rem',
               borderRadius: '8px',
               fontWeight: 600,
@@ -139,8 +155,8 @@ export default function Login({ profiles, onLoginSuccess }) {
             onClick={() => handleRoleSwitch('learner')}
             style={{
               border: 'none',
-              background: loginRole === 'learner' ? 'var(--primary)' : 'transparent',
-              color: loginRole === 'learner' ? '#ffffff' : 'var(--text-muted)',
+              background: loginRole === 'learner' ? '#3d7a5a' : 'transparent',
+              color: loginRole === 'learner' ? '#ffffff' : '#5c3a21',
               padding: '0.6rem 0.2rem',
               borderRadius: '8px',
               fontWeight: 600,
@@ -158,7 +174,7 @@ export default function Login({ profiles, onLoginSuccess }) {
         </div>
 
         {errorMsg && (
-          <div style={{ background: 'var(--danger-light)', border: '1px solid var(--danger)', color: 'var(--danger)', padding: '0.65rem 0.85rem', borderRadius: '8px', fontSize: '0.8rem', marginBottom: '1.25rem', textAlign: 'center' }}>
+          <div style={{ background: 'rgba(239, 68, 68, 0.08)', border: '1px solid var(--danger)', color: 'var(--danger)', padding: '0.65rem 0.85rem', borderRadius: '8px', fontSize: '0.8rem', marginBottom: '1.25rem', textAlign: 'center' }}>
             {errorMsg}
           </div>
         )}
@@ -166,36 +182,59 @@ export default function Login({ profiles, onLoginSuccess }) {
         {/* Credentials Form */}
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           <div className="form-group" style={{ marginBottom: 0 }}>
-            <label style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>USERNAME</label>
+            <label style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#5c3a21', fontWeight: 700 }}>USERNAME</label>
             <input
               type="text"
               className="form-control"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
+              style={{
+                background: 'rgba(255, 255, 255, 0.75)',
+                borderColor: 'rgba(122, 77, 43, 0.25)'
+              }}
             />
           </div>
 
           <div className="form-group" style={{ marginBottom: 0 }}>
-            <label style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>PASSWORD</label>
+            <label style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#5c3a21', fontWeight: 700 }}>PASSWORD</label>
             <input
               type="password"
               className="form-control"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              style={{
+                background: 'rgba(255, 255, 255, 0.75)',
+                borderColor: 'rgba(122, 77, 43, 0.25)'
+              }}
             />
           </div>
 
-          <button type="submit" className="btn btn-primary" style={{ padding: '0.85rem', marginTop: '0.5rem', width: '100%', fontSize: '0.9rem' }}>
+          <button 
+            type="submit" 
+            className="btn" 
+            style={{ 
+              padding: '0.85rem', 
+              marginTop: '0.5rem', 
+              width: '100%', 
+              fontSize: '0.9rem',
+              background: '#3d7a5a',
+              color: '#ffffff',
+              border: 'none',
+              borderRadius: '8px',
+              fontWeight: 700,
+              cursor: 'pointer'
+            }}
+          >
             <LogIn size={16} /> Sign In as {loginRole === 'admin' ? 'Admin' : loginRole === 'curator' ? 'Curator' : 'Learner'}
           </button>
         </form>
 
         {/* Quick Demo Shortcuts */}
-        <div style={{ borderTop: '1px solid rgba(0, 75, 135, 0.15)', paddingTop: '1.5rem', marginTop: '1.75rem' }}>
-          <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textAlign: 'center', marginBottom: '0.85rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem' }}>
-            <Sparkles size={12} style={{ color: 'var(--primary)' }} /> 1-Click Demo Credentials
+        <div style={{ borderTop: '1px solid rgba(122, 77, 43, 0.15)', paddingTop: '1.5rem', marginTop: '1.75rem' }}>
+          <div style={{ fontSize: '0.75rem', color: '#5c3a21', textAlign: 'center', marginBottom: '0.85rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem', fontWeight: 600 }}>
+            <Sparkles size={12} style={{ color: '#d9aa2b' }} /> 1-Click Demo Credentials
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
@@ -203,20 +242,20 @@ export default function Login({ profiles, onLoginSuccess }) {
                 type="button"
                 className="btn btn-secondary"
                 onClick={() => handleQuickDemo('admin', adminUser)}
-                style={{ fontSize: '0.75rem', padding: '0.45rem', justifyContent: 'space-between', background: '#f8fafc' }}
+                style={{ fontSize: '0.75rem', padding: '0.45rem', justifyContent: 'space-between', background: 'rgba(255,255,255,0.7)', borderColor: 'rgba(122, 77, 43, 0.2)' }}
               >
                 <span>🔑 Admin</span>
-                <span style={{ color: 'var(--text-muted)', fontFamily: 'monospace', fontSize: '0.65rem' }}>admin/admin123</span>
+                <span style={{ color: '#5c3a21', fontFamily: 'monospace', fontSize: '0.65rem' }}>admin/admin123</span>
               </button>
               
               <button
                 type="button"
                 className="btn btn-secondary"
                 onClick={() => handleQuickDemo('curator', curatorUser)}
-                style={{ fontSize: '0.75rem', padding: '0.45rem', justifyContent: 'space-between', background: '#f8fafc' }}
+                style={{ fontSize: '0.75rem', padding: '0.45rem', justifyContent: 'space-between', background: 'rgba(255,255,255,0.7)', borderColor: 'rgba(122, 77, 43, 0.2)' }}
               >
                 <span>🔑 Curator</span>
-                <span style={{ color: 'var(--text-muted)', fontFamily: 'monospace', fontSize: '0.65rem' }}>curator/curator123</span>
+                <span style={{ color: '#5c3a21', fontFamily: 'monospace', fontSize: '0.65rem' }}>curator/curator123</span>
               </button>
             </div>
             
@@ -226,10 +265,10 @@ export default function Login({ profiles, onLoginSuccess }) {
                 type="button"
                 className="btn btn-secondary"
                 onClick={() => handleQuickDemo('learner', profile)}
-                style={{ fontSize: '0.75rem', padding: '0.45rem', justifyContent: 'space-between', background: '#f8fafc' }}
+                style={{ fontSize: '0.75rem', padding: '0.45rem', justifyContent: 'space-between', background: 'rgba(255,255,255,0.7)', borderColor: 'rgba(122, 77, 43, 0.2)' }}
               >
                 <span>👤 Learner ({profile.name})</span>
-                <span style={{ color: 'var(--text-muted)', fontFamily: 'monospace' }}>{profile.username} / password</span>
+                <span style={{ color: '#5c3a21', fontFamily: 'monospace' }}>{profile.username} / password</span>
               </button>
             ))}
           </div>
