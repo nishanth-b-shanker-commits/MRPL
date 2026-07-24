@@ -47,6 +47,42 @@ const defaultCourses = [
     enrolledCount: 85
   },
   {
+    id: 'video-mrpl-01',
+    title: 'MRPL Refinery Safety & Hazards Induction (Video)',
+    description: 'Mandatory safety induction training for refinery plant operations, detailing fire hazards, PPE, and evacuation routes.',
+    type: 'Video',
+    duration: '20 mins',
+    category: 'Safety',
+    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    transcript: 'Welcome to Mangalore Refinery and Petrochemicals safety induction. Today we focus on safety boots, oxygen hazard detectors, fire suppression assembly areas, and emergency plant shutoff switches.',
+    completionRate: 95,
+    enrolledCount: 320
+  },
+  {
+    id: 'video-mrpl-02',
+    title: 'Refinery Distillation & Towers Operation (Video)',
+    description: 'Overview of the crude oil heating and distillation columns process, tower pressure balancing, and product cracking towers.',
+    type: 'Video',
+    duration: '45 mins',
+    category: 'Operations',
+    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    transcript: 'This operations training covers fractional distillation of petroleum. We review fluid heat exchangers, distillation trays, chemical catalyst reactors, and heavy oil separation systems.',
+    completionRate: 90,
+    enrolledCount: 185
+  },
+  {
+    id: 'video-mrpl-03',
+    title: 'Environmental and Pollution Control Guidelines (Video)',
+    description: 'Compliance training covering waste treatment plants, air emission filters, and carbon minimization goals at MRPL.',
+    type: 'Video',
+    duration: '30 mins',
+    category: 'Compliance',
+    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+    transcript: 'Environmental compliance is MRPL priority. In this module, we review sulfur emission scrubbers, water recycling filtration plants, and statutory environment report logging.',
+    completionRate: 87,
+    enrolledCount: 150
+  },
+  {
     id: 'project-management',
     title: 'Modern Project Management & Agile',
     description: 'Understand Agile methodologies, Scrum ceremonies, Kanban boards, and how to plan sprint backlogs effectively.',
