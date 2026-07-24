@@ -30,7 +30,10 @@ export default function App() {
     return localStorage.getItem('mrpl_user_role') || 'admin';
   });
 
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTab] = useState(() => {
+    const role = localStorage.getItem('mrpl_user_role') || 'admin';
+    return role === 'admin' ? 'dashboard' : 'learner-courses';
+  });
   const [apiKey, setApiKey] = useState(() => {
     return localStorage.getItem('mrpl_gemini_api_key') || '';
   });
@@ -104,6 +107,7 @@ export default function App() {
           setProfiles={setProfiles}
           courses={courses}
           publishedQuestions={publishedQuestions}
+          activeTab={activeTab}
         />
       );
     }
@@ -178,7 +182,6 @@ export default function App() {
       <Sidebar 
         currentUser={currentUser}
         userRole={userRole}
-        setUserRole={setUserRole}
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
         apiKey={apiKey} 

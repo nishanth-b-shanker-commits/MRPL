@@ -61,9 +61,11 @@ export default function Login({ profiles, onLoginSuccess }) {
       alignItems: 'center',
       justifyContent: 'center',
       padding: '2rem',
-      background: 'linear-gradient(135deg, #e0f2fe 0%, #f0f4f8 50%, #dcfce7 100%)'
+      background: 'rgba(240, 244, 248, 0.65)',
+      backdropFilter: 'blur(8px)',
+      WebkitBackdropFilter: 'blur(8px)'
     }}>
-      <div className="card" style={{ width: '100%', maxWidth: '440px', padding: '2.5rem', background: '#ffffff', border: '1px solid #cbd5e1', boxShadow: 'var(--shadow-lg)' }}>
+      <div className="card" style={{ width: '100%', maxWidth: '440px', padding: '2.5rem', background: 'rgba(255, 255, 255, 0.8)', border: '1px solid rgba(0, 75, 135, 0.2)', boxShadow: 'var(--shadow-lg)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}>
         
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
@@ -77,7 +79,7 @@ export default function Login({ profiles, onLoginSuccess }) {
         </div>
 
         {/* Role Tabs */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', background: '#f1f5f9', padding: '0.25rem', borderRadius: '10px', marginBottom: '1.75rem', border: '1px solid #cbd5e1' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', background: 'rgba(0, 75, 135, 0.05)', padding: '0.25rem', borderRadius: '10px', marginBottom: '1.75rem', border: '1px solid rgba(0, 75, 135, 0.15)' }}>
           <button
             type="button"
             onClick={() => handleRoleSwitch('admin')}

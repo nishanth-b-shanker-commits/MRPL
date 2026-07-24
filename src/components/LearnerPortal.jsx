@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Wifi, WifiOff, RefreshCw, BookOpen, Download, CheckCircle, Award, AlertCircle, Play, Video, X } from 'lucide-react';
 
-export default function LearnerPortal({ profiles, setProfiles, courses, publishedQuestions }) {
+export default function LearnerPortal({ profiles, setProfiles, courses, publishedQuestions, activeTab }) {
   const [activeProfile, setActiveProfile] = useState(null);
   const [isOnline, setIsOnline] = useState(true);
-  const [learnerTab, setLearnerTab] = useState('my-learning');
+  const learnerTab = activeTab === 'learner-catalog' ? 'catalog' 
+                   : activeTab === 'learner-sync' ? 'sync' 
+                   : 'my-learning';
   
   const [downloadedCourseIds, setDownloadedCourseIds] = useState([]);
   const [offlineCompletedQuizzes, setOfflineCompletedQuizzes] = useState([]);
@@ -236,30 +238,7 @@ export default function LearnerPortal({ profiles, setProfiles, courses, publishe
         </div>
       )}
 
-      {/* 2. Sub-navigation tabs */}
-      <div style={{ display: 'flex', gap: '1rem', borderBottom: '1px solid var(--border)', paddingBottom: '1rem', marginBottom: '2rem' }}>
-        <button 
-          className={`btn ${learnerTab === 'my-learning' ? 'btn-primary' : 'btn-secondary'}`}
-          onClick={() => { setLearnerTab('my-learning'); setActiveAssessment(null); setPlayingVideoCourse(null); }}
-          style={{ padding: '0.5rem 1.25rem', fontSize: '0.85rem' }}
-        >
-          My Courses ({enrolled.length})
-        </button>
-        <button 
-          className={`btn ${learnerTab === 'catalog' ? 'btn-primary' : 'btn-secondary'}`}
-          onClick={() => { setLearnerTab('catalog'); setActiveAssessment(null); setPlayingVideoCourse(null); }}
-          style={{ padding: '0.5rem 1.25rem', fontSize: '0.85rem' }}
-        >
-          Course Catalog
-        </button>
-        <button 
-          className={`btn ${learnerTab === 'sync' ? 'btn-primary' : 'btn-secondary'}`}
-          onClick={() => { setLearnerTab('sync'); setActiveAssessment(null); setPlayingVideoCourse(null); }}
-          style={{ padding: '0.5rem 1.25rem', fontSize: '0.85rem' }}
-        >
-          Offline Downloads & Sync ({offlineCompletedQuizzes.length})
-        </button>
-      </div>
+
 
       {/* 3. Main Views */}
       {activeAssessment ? (
