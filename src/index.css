@@ -59,8 +59,8 @@
 
 body {
   font-family: var(--font-body);
-  background-color: #f6d140; /* Warm MRPL Gold Fallback */
-  background-image: url('./assets/hero.png'); /* Pencils background */
+  background-color: #0f172a; /* Chalkboard Fallback */
+  background-image: url('./assets/workspace_bg.jpg'); /* Chalkboard background */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -74,7 +74,7 @@ body {
 .app-container {
   display: flex;
   min-height: 100vh;
-  background: rgba(240, 244, 248, 0.65); /* Soft cool-tint overlay over yellow background */
+  background: rgba(10, 25, 47, 0.25); /* Darker overlay for high-contrast chalkboard */
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
